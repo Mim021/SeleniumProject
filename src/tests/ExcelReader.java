@@ -25,18 +25,30 @@ public class ExcelReader {
 		this.fis = new FileInputStream(file);
 		this.wb = new XSSFWorkbook(fis);
 	}
-	public String getStringData(String sheetName, int rowNumber, int columnNumber) {
-		sheet = wb.getSheet(sheetName);
-		row = sheet.getRow(rowNumber-1);
-		cell = row.getCell(columnNumber-1);
-		return cell.getStringCellValue();
-	}
 	
-	public int getIntData(String sheetName, int rowNumber, int columnNumber) {
+	public String getData(String sheetName, int rowNumber, int columnNumber) {
 		sheet = wb.getSheet(sheetName);
-		row = sheet.getRow(rowNumber-1);
-		cell = row.getCell(columnNumber-1);
-		return (int)cell.getNumericCellValue();
+		row = sheet.getRow(rowNumber - 1);
+		cell = row.getCell(columnNumber - 1);
+		if (cell.getCellType() == CellType.NUMERIC) { 
+			value = String.valueOf((int) cell.getNumericCellValue());
+		} else {
+			value = cell.getStringCellValue();
+		}
+		return value;
 	}
+//	public String getStringData(String sheetName, int rowNumber, int columnNumber) {
+//		sheet = wb.getSheet(sheetName);
+//		row = sheet.getRow(rowNumber-1);
+//		cell = row.getCell(columnNumber-1);
+//		return cell.getStringCellValue();
+//	}
+//	
+//	public int getIntData(String sheetName, int rowNumber, int columnNumber) {
+//		sheet = wb.getSheet(sheetName);
+//		row = sheet.getRow(rowNumber-1);
+//		cell = row.getCell(columnNumber-1);
+//		return (int)cell.getNumericCellValue();
+//	}
 }
 
